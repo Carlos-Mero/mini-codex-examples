@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dou Dizhu</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Web Card Table</p>
+        <h1>Dou Dizhu</h1>
+      </div>
+      <button id="new-game-button" class="secondary-button">New Round</button>
+    </header>
+
+    <main class="table">
+      <section class="opponents-row">
+        <article class="player-panel ai-panel" id="player-1-panel"></article>
+        <article class="player-panel ai-panel" id="player-2-panel"></article>
+      </section>
+
+      <section class="center-stage">
+        <div class="status-card">
+          <p class="section-label">Status</p>
+          <p id="status-text" class="status-text"></p>
+          <p id="turn-text" class="turn-text"></p>
+        </div>
+
+        <div class="kitty-card">
+          <p class="section-label">Landlord Bonus Cards</p>
+          <div id="kitty-cards" class="kitty-cards"></div>
+        </div>
+
+        <div class="history-card">
+          <p class="section-label">Last Trick</p>
+          <div id="trick-history" class="trick-history"></div>
+        </div>
+      </section>
+
+      <section class="human-panel">
+        <article class="player-panel human-info" id="player-0-panel"></article>
+
+        <div class="controls-card">
+          <div id="bid-controls" class="controls-group"></div>
+          <div id="play-controls" class="controls-group"></div>
+        </div>
+
+        <div class="selection-card">
+          <p class="section-label">Your Hand</p>
+          <div id="human-hand" class="hand-row"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

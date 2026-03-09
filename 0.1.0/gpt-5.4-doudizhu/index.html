@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dou Dizhu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div>
+        <h1>Dou Dizhu</h1>
+        <p>Play against two computer players in your browser.</p>
+      </div>
+      <div class="toolbar">
+        <button id="restartBtn">New Game</button>
+        <button id="hintBtn">Hint</button>
+        <button id="playBtn" class="primary">Play Selected</button>
+        <button id="passBtn">Pass</button>
+      </div>
+    </header>
+
+    <section class="status-board">
+      <div class="status-card">
+        <span class="label">Phase</span>
+        <strong id="phaseLabel">Ready</strong>
+      </div>
+      <div class="status-card">
+        <span class="label">Current Turn</span>
+        <strong id="turnLabel">-</strong>
+      </div>
+      <div class="status-card">
+        <span class="label">Current Bid</span>
+        <strong id="bidLabel">-</strong>
+      </div>
+      <div class="status-card wide">
+        <span class="label">Message</span>
+        <strong id="messageLabel">Starting game...</strong>
+      </div>
+    </section>
+
+    <section id="biddingPanel" class="bidding-panel hidden">
+      <div>
+        <h2>Bidding</h2>
+        <p>Choose a score to compete for landlord. Higher score wins.</p>
+      </div>
+      <div class="bid-actions">
+        <button data-bid="0">Pass</button>
+        <button data-bid="1">1</button>
+        <button data-bid="2">2</button>
+        <button data-bid="3">3</button>
+      </div>
+    </section>
+
+    <section class="table-layout">
+      <div class="top-players">
+        <div id="player1" class="player-panel"></div>
+        <div id="player2" class="player-panel"></div>
+      </div>
+
+      <div class="center-area">
+        <div class="bottom-cards-panel">
+          <div class="section-title">Bottom Cards</div>
+          <div id="bottomCards" class="card-row"></div>
+        </div>
+        <div class="log-panel">
+          <div class="section-title">Game Log</div>
+          <div id="logList" class="log-list"></div>
+        </div>
+      </div>
+
+      <div id="player0" class="player-panel human-panel"></div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

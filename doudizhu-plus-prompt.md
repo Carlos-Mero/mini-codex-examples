@@ -1,0 +1,1 @@
+Please build a high-quality, polished, single-player web version of the Chinese card game Dou Dizhu from scratch. This is not a toy demo. I want a visually refined, feature-rich, production-style browser game that feels close to a real commercial casual card game, while still being fully playable as a standalone front-end project.

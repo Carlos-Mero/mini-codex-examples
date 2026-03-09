@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flappy Bird</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="page">
+      <section class="game-shell">
+        <div class="hud">
+          <div class="title">Flappy Bird</div>
+          <div class="scoreboard">
+            <span>Score: <strong id="score">0</strong></span>
+            <span>Best: <strong id="best-score">0</strong></span>
+          </div>
+        </div>
+
+        <div class="game-frame">
+          <canvas
+            id="game"
+            width="420"
+            height="720"
+            aria-label="Flappy Bird game canvas"
+          ></canvas>
+
+          <div id="overlay" class="overlay">
+            <h1>Tap to Fly</h1>
+            <p>Press Space, click, or tap to start.</p>
+            <button id="start-button" type="button">Start Game</button>
+          </div>
+        </div>
+
+        <p class="controls">
+          Controls: <span>Space</span> / <span>Click</span> / <span>Tap</span>
+        </p>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

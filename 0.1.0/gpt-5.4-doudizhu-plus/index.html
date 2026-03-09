@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dou Dizhu Deluxe</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="hud">
+      <div class="brand">
+        <div class="brand-mark">地主</div>
+        <div class="brand-copy">
+          <h1>Dou Dizhu Deluxe</h1>
+          <p>Single-player Chinese landlord card game</p>
+        </div>
+      </div>
+
+      <div class="hud-metrics">
+        <div class="metric">
+          <span>Round</span>
+          <strong id="round-value">0</strong>
+        </div>
+        <div class="metric">
+          <span>Multiplier</span>
+          <strong id="multiplier-value">1x</strong>
+        </div>
+        <div class="metric">
+          <span>Your Wins</span>
+          <strong id="wins-value">0</strong>
+        </div>
+        <div class="metric">
+          <span>Session Score</span>
+          <strong id="score-value">0</strong>
+        </div>
+      </div>
+
+      <div class="hud-actions">
+        <button class="ghost-btn" id="new-game-btn">New Match</button>
+        <button class="ghost-btn" id="rules-toggle-btn">Rules</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="table-shell">
+        <div class="table">
+          <div class="felt-noise"></div>
+          <div class="table-ring"></div>
+
+          <div class="player-seat seat-left" id="seat-left">
+            <div class="seat-info" id="left-info"></div>
+            <div class="seat-hand ai-hand" id="left-hand"></div>
+            <div class="seat-play" id="left-play"></div>
+          </div>
+
+          <div class="player-seat seat-right" id="seat-right">
+            <div class="seat-info" id="right-info"></div>
+            <div class="seat-hand ai-hand" id="right-hand"></div>
+            <div class="seat-play" id="right-play"></div>
+          </div>
+
+          <div class="center-stage">
+            <div class="center-topline">
+              <div class="status-pill" id="status-pill">Welcome to the table.</div>
+              <div class="turn-pill" id="turn-pill">Press New Match to begin.</div>
+            </div>
+
+            <div class="kitty-panel panel-lite">
+              <div class="panel-label">Bottom Cards</div>
+              <div class="bottom-cards" id="bottom-cards"></div>
+            </div>
+
+            <div class="bidding-track panel-lite">
+              <div class="panel-label">Bids</div>
+              <div class="bid-list" id="bid-list"></div>
+            </div>
+          </div>
+
+          <div class="player-seat seat-bottom" id="seat-human">
+            <div class="seat-info" id="human-info"></div>
+            <div class="seat-play human-play" id="human-play"></div>
+            <div class="hand-shell">
+              <div class="hand-toolbar">
+                <div class="toolbar-title">Your Hand</div>
+                <div class="toolbar-hint">Click cards to select. Play valid combinations to beat the current trick.</div>
+              </div>
+              <div class="human-hand" id="human-hand"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar">
+        <section class="panel action-panel">
+          <div class="panel-header">
+            <h2>Actions</h2>
+            <p id="selection-summary">No cards selected</p>
+          </div>
+
+          <div class="controls hidden" id="bid-controls">
+            <button class="action-btn subtle" data-bid="0">Pass</button>
+            <button class="action-btn" data-bid="1">Bid 1</button>
+            <button class="action-btn" data-bid="2">Bid 2</button>
+            <button class="action-btn" data-bid="3">Bid 3</button>
+          </div>
+
+          <div class="controls" id="play-controls">
+            <button class="action-btn primary" id="play-btn">Play Selected</button>
+            <button class="action-btn subtle" id="pass-btn">Pass</button>
+            <button class="action-btn subtle" id="hint-btn">Hint</button>
+            <button class="action-btn subtle" id="clear-btn">Clear</button>
+            <button class="action-btn subtle" id="sort-btn">Sort: Grouped</button>
+          </div>
+
+          <div class="message-box" id="message-box">Shuffling a new deck will start a complete fresh round.</div>
+        </section>
+
+        <section class="panel score-panel">
+          <div class="panel-header">
+            <h2>Table Scores</h2>
+            <p>Persistent browser stats and current player totals.</p>
+          </div>
+          <div class="score-grid" id="score-grid"></div>
+        </section>
+
+        <section class="panel log-panel">
+          <div class="panel-header">
+            <h2>Table Log</h2>
+            <p>Latest actions from the current match.</p>
+          </div>
+          <div class="log-list" id="log-list"></div>
+        </section>
+
+        <section class="panel rules-panel collapsed" id="rules-panel">
+          <div class="panel-header">
+            <h2>Quick Rules</h2>
+            <p>Common supported Dou Dizhu combinations.</p>
+          </div>
+          <div class="rules-content">
+            <ul>
+              <li>Singles, pairs, triples, triple + single, triple + pair</li>
+              <li>Straights of 5+ cards (3 up to A, no 2 or jokers)</li>
+              <li>Consecutive pairs of 3+ pairs</li>
+              <li>Airplanes: consecutive triples, with or without wings</li>
+              <li>Four with two singles / four with two pairs</li>
+              <li>Bombs and the rocket (both jokers)</li>
+              <li>Bombs beat every non-bomb; rocket beats everything</li>
+            </ul>
+          </div>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <div class="overlay hidden" id="result-overlay">
+    <div class="result-card">
+      <div class="result-badge" id="result-badge">Victory</div>
+      <h2 id="result-title">Round Complete</h2>
+      <p id="result-subtitle">You won the hand.</p>
+      <div class="result-stats" id="result-stats"></div>
+      <div class="result-actions">
+        <button class="action-btn primary" id="rematch-btn">Play Next Round</button>
+        <button class="action-btn subtle" id="close-overlay-btn">Review Table</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

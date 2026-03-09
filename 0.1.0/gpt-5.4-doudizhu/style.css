@@ -1,0 +1,329 @@
+:root {
+  color-scheme: dark;
+  --bg1: #184d37;
+  --bg2: #0a2317;
+  --panel: rgba(12, 28, 21, 0.86);
+  --panel2: rgba(18, 45, 33, 0.9);
+  --line: rgba(234, 245, 238, 0.14);
+  --text: #eef8f1;
+  --muted: #b7c9bc;
+  --accent: #ffd166;
+  --danger: #ef476f;
+  --good: #5dd39e;
+  --shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(255, 209, 102, 0.14), transparent 32%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.app {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.topbar h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.topbar p {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.toolbar,
+.bid-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.toolbar button,
+.bid-actions button {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel2);
+  color: var(--text);
+  padding: 10px 16px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+button.primary {
+  background: linear-gradient(180deg, #ffe390 0%, #e8b34a 100%);
+  color: #2b1b00;
+  font-weight: 700;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.status-board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.status-card,
+.bidding-panel,
+.player-panel,
+.bottom-cards-panel,
+.log-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.status-card,
+.bidding-panel,
+.player-panel,
+.bottom-cards-panel,
+.log-panel {
+  padding: 16px;
+}
+
+.label,
+.section-title,
+.small-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-card strong {
+  display: block;
+  margin-top: 6px;
+}
+
+.bidding-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.bidding-panel h2 {
+  margin: 0 0 6px;
+}
+
+.bidding-panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none;
+}
+
+.table-layout,
+.top-players,
+.center-area {
+  display: grid;
+  gap: 16px;
+}
+
+.top-players {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.center-area {
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.player-header,
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.player-header {
+  margin-bottom: 10px;
+}
+
+.player-name {
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.badge.landlord {
+  color: #2a1a00;
+  background: linear-gradient(180deg, #ffe39f 0%, #eabb58 100%);
+  border-color: rgba(255, 209, 102, 0.45);
+}
+
+.badge.current {
+  color: #bdf0d6;
+  background: rgba(93, 211, 158, 0.16);
+  border-color: rgba(93, 211, 158, 0.35);
+}
+
+.badge.pass {
+  color: #ffd5de;
+  background: rgba(239, 71, 111, 0.13);
+  border-color: rgba(239, 71, 111, 0.3);
+}
+
+.meta-row {
+  margin-bottom: 10px;
+  color: var(--muted);
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: flex-start;
+  min-height: 64px;
+}
+
+.card,
+.card-back,
+.empty-slot {
+  width: 48px;
+  min-height: 64px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22);
+}
+
+.card {
+  background: linear-gradient(180deg, #fffef8 0%, #ece2cf 100%);
+  color: #181818;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.card.red {
+  color: #ba143f;
+}
+
+.card.selected {
+  transform: translateY(-10px);
+  border-color: var(--accent);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.32);
+}
+
+.card.played {
+  cursor: default;
+}
+
+.card-back {
+  background: linear-gradient(180deg, #345f4c 0%, #244434 100%);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.2rem;
+}
+
+.empty-slot {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.4);
+  border-style: dashed;
+}
+
+.action-text {
+  margin-top: 12px;
+  min-height: 24px;
+  color: var(--accent);
+}
+
+.action-text.pass {
+  color: #ff9ab3;
+}
+
+.human-panel .hand-row {
+  min-height: 112px;
+}
+
+.instructions {
+  margin-top: 10px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.log-list {
+  max-height: 220px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.log-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 8px 10px;
+  color: var(--muted);
+}
+
+@media (max-width: 960px) {
+  .status-board,
+  .top-players,
+  .center-area {
+    grid-template-columns: 1fr;
+  }
+
+  .topbar,
+  .bidding-panel {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar button,
+  .bid-actions button {
+    width: 100%;
+  }
+}

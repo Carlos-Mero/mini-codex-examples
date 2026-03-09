@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dou Dizhu Royale</title>
+    <meta
+      name="description"
+      content="A polished single-player browser version of Dou Dizhu with bidding, AI opponents, hints, score tracking, and rich table visuals."
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Single-Player Casual Card Game</p>
+          <h1>Dou Dizhu Royale</h1>
+        </div>
+        <div class="topbar-panels">
+          <section class="glass-panel score-panel">
+            <span class="label">Base Score</span>
+            <strong id="base-score">1</strong>
+          </section>
+          <section class="glass-panel score-panel accent">
+            <span class="label">Multiplier</span>
+            <strong id="multiplier">1x</strong>
+          </section>
+          <section class="glass-panel score-panel">
+            <span class="label">Coins</span>
+            <strong id="player-coins">1000</strong>
+          </section>
+        </div>
+      </header>
+
+      <main class="table-layout">
+        <aside class="left-rail glass-panel">
+          <div class="rail-section">
+            <h2>Round Status</h2>
+            <p id="phase-text">Preparing a new round...</p>
+            <p id="turn-text">Shuffling deck</p>
+          </div>
+          <div class="rail-section">
+            <h2>Landlord Cards</h2>
+            <div id="kitty" class="kitty"></div>
+          </div>
+          <div class="rail-section">
+            <h2>Recent Plays</h2>
+            <div id="history-log" class="history-log"></div>
+          </div>
+          <div class="rail-section">
+            <h2>Session</h2>
+            <div class="stats-grid">
+              <div><span>Wins</span><strong id="stat-wins">0</strong></div>
+              <div><span>Losses</span><strong id="stat-losses">0</strong></div>
+              <div><span>Streak</span><strong id="stat-streak">0</strong></div>
+              <div><span>Best</span><strong id="stat-best">0</strong></div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="table">
+          <div class="table-felt"></div>
+
+          <section class="player-seat top-seat left-seat">
+            <div class="avatar-badge">
+              <div class="avatar">L</div>
+              <div>
+                <h3>Left AI</h3>
+                <p id="left-role">Peasant</p>
+              </div>
+            </div>
+            <div class="hand-counter" id="left-count">17 cards</div>
+            <div class="card-fan ai-fan" id="left-hand"></div>
+            <div class="played-zone" id="left-play-area"></div>
+          </section>
+
+          <section class="center-stage">
+            <div class="round-banner glass-panel">
+              <div>
+                <span class="label">Current Pattern</span>
+                <strong id="current-pattern">Opening lead</strong>
+              </div>
+              <div>
+                <span class="label">Last Winner</span>
+                <strong id="last-winner">None</strong>
+              </div>
+              <div>
+                <span class="label">Landlord</span>
+                <strong id="landlord-name">Pending</strong>
+              </div>
+            </div>
+            <div id="center-message" class="center-message">Deal in progress</div>
+            <div class="table-pot">
+              <div class="token-stack"></div>
+              <div class="token-stack accent"></div>
+            </div>
+          </section>
+
+          <section class="player-seat top-seat right-seat">
+            <div class="avatar-badge">
+              <div class="avatar">R</div>
+              <div>
+                <h3>Right AI</h3>
+                <p id="right-role">Peasant</p>
+              </div>
+            </div>
+            <div class="hand-counter" id="right-count">17 cards</div>
+            <div class="card-fan ai-fan" id="right-hand"></div>
+            <div class="played-zone" id="right-play-area"></div>
+          </section>
+
+          <section class="player-seat bottom-seat human-seat">
+            <div class="avatar-badge human">
+              <div class="avatar">You</div>
+              <div>
+                <h3>Player</h3>
+                <p id="player-role">Peasant</p>
+              </div>
+            </div>
+            <div class="played-zone human-play-zone" id="player-play-area"></div>
+            <div class="hand-scroll">
+              <div class="player-hand" id="player-hand"></div>
+            </div>
+            <div class="control-bar glass-panel">
+              <button id="bid-btn" class="primary">Call Landlord</button>
+              <button id="pass-bid-btn">Pass Bid</button>
+              <button id="hint-btn">Hint</button>
+              <button id="play-btn" class="primary">Play Selected</button>
+              <button id="pass-btn">Pass Turn</button>
+              <button id="sort-btn">Sort Hand</button>
+              <button id="new-game-btn">New Round</button>
+            </div>
+          </section>
+        </section>
+
+        <aside class="right-rail glass-panel">
+          <div class="rail-section">
+            <h2>Controls</h2>
+            <ul class="compact-list">
+              <li>Call or pass during landlord bidding.</li>
+              <li>Select cards to form a legal pattern.</li>
+              <li>Use Hint for the smallest valid response.</li>
+              <li>Bombs and rockets increase the multiplier.</li>
+            </ul>
+          </div>
+          <div class="rail-section">
+            <h2>Pattern Guide</h2>
+            <ul class="compact-list small">
+              <li>Singles, pairs, triples</li>
+              <li>Triple with single or pair</li>
+              <li>Straight and pair straight</li>
+              <li>Plane with or without wings</li>
+              <li>Four with two singles or pairs</li>
+              <li>Bomb and double joker rocket</li>
+            </ul>
+          </div>
+          <div class="rail-section">
+            <h2>Tips</h2>
+            <div id="tip-box" class="tip-box">
+              Break up bombs only when the tempo is worth it.
+            </div>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <template id="card-template">
+      <button class="card">
+        <span class="card-rank"></span>
+        <span class="card-suit"></span>
+      </button>
+    </template>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
