@@ -29,3 +29,7 @@ These are screenshots of the small projects in this repo, which are created eith
 **Dou Dizhu Plus**: created by mini-codex v0.1.0 with GPT-5.4 and prompt: "Please build a high-quality, polished, single-player web version of the Chinese card game Dou Dizhu from scratch. This is not a toy demo. I want a visually refined, feature-rich, production-style browser game that feels close to a real commercial casual card game, while still being fully playable as a standalone front-end project."
 
 ![](./assets/mini-codex-gpt-5.4-doudizhu-plus.jpeg)
+
+**Dou Dizhu Delux**: created by mini-codex v0.1.0 with GPT-5.4 and several turns of interaction.
+
+![](./assets/mini-codex-gpt-5.4-doudizhu-delux.jpeg)

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0c1422" />
+  <title>欢乐斗地主 Deluxe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+    <div class="ambient ambient-c"></div>
+
+    <header class="topbar glass">
+      <div class="brand">
+        <div class="brand-badge">♠</div>
+        <div>
+          <div class="eyebrow-row">
+            <span class="eyebrow-pill">DELUXE TABLE</span>
+            <span class="eyebrow-pill muted">Premium UI Demo</span>
+          </div>
+          <h1>欢乐斗地主 <span>Deluxe</span></h1>
+          <p>单机 · 三人对战 · 更精致、更沉浸的网页版本</p>
+        </div>
+      </div>
+
+      <div class="topbar-center">
+        <div class="round-chip">
+          <span>底分</span>
+          <strong id="baseScore">1</strong>
+        </div>
+        <div class="round-chip multiplier">
+          <span>倍率</span>
+          <strong id="multiplier">1</strong>
+        </div>
+        <div class="round-chip phase-chip">
+          <span>当前阶段</span>
+          <strong id="phaseLabel">准备中</strong>
+        </div>
+        <div class="round-chip">
+          <span>排序</span>
+          <strong id="sortModeLabel">分组</strong>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <button id="soundBtn" class="btn btn-secondary">音效：开</button>
+        <button id="newGameBtn" class="btn btn-primary">新开一局</button>
+        <button id="howToBtn" class="btn btn-secondary">规则说明</button>
+      </div>
+    </header>
+
+    <main class="table-wrap">
+      <section class="table glass">
+        <div class="table-sheen"></div>
+        <div class="table-logo">斗地主</div>
+
+        <div class="table-center">
+          <div class="kitty-zone">
+            <div class="zone-head">
+              <div class="zone-title">地主底牌</div>
+              <div class="zone-caption">Landlord Kitty</div>
+            </div>
+            <div id="kittyCards" class="kitty-cards"></div>
+          </div>
+
+          <div class="table-status">
+            <div class="status-shell">
+              <div id="phaseBadge" class="phase-badge phase-idle">准备中</div>
+              <div id="statusBanner" class="status-banner">点击“新开一局”开始游戏</div>
+            </div>
+
+            <div id="dealDeck" class="deal-deck hidden" aria-hidden="true">
+              <div class="deal-deck-stack">
+                <div class="card back small"></div>
+                <div class="card back small"></div>
+                <div class="card back small"></div>
+              </div>
+              <div class="deal-deck-text">发牌中…</div>
+            </div>
+
+            <div class="table-metrics">
+              <div class="metric-pill"><span>本局地主</span><strong id="landlordLabel">待定</strong></div>
+              <div class="metric-pill"><span>领先方</span><strong id="leaderLabel">—</strong></div>
+            </div>
+          </div>
+
+          <div class="last-play-panel">
+            <div class="zone-head">
+              <div class="zone-title">本轮牌型</div>
+              <div class="zone-caption">Latest Combo</div>
+            </div>
+            <div id="lastPlayType" class="last-play-type">—</div>
+            <div id="lastPlayCards" class="last-play-cards"></div>
+          </div>
+        </div>
+
+        <div class="player-area top">
+          <div id="seat-top" class="seat-panel">
+            <div class="avatar-wrap">
+              <div class="avatar ai">智</div>
+              <div class="player-meta">
+                <div class="name-row">
+                  <span class="player-name">上家 · 阿策</span>
+                  <span id="role-top" class="role-tag">农民</span>
+                </div>
+                <div class="score-row">剩余 <strong id="count-top">17</strong> 张</div>
+              </div>
+            </div>
+            <div id="turn-top" class="turn-indicator"></div>
+            <div id="bid-top" class="bid-badge"></div>
+          </div>
+          <div id="hand-top" class="hand hand-ai hand-top"></div>
+          <div id="play-top" class="played-slot"></div>
+        </div>
+
+        <div class="player-area left">
+          <div id="seat-left" class="seat-panel">
+            <div class="avatar-wrap">
+              <div class="avatar ai">略</div>
+              <div class="player-meta">
+                <div class="name-row">
+                  <span class="player-name">左家 · 小略</span>
+                  <span id="role-left" class="role-tag">农民</span>
+                </div>
+                <div class="score-row">剩余 <strong id="count-left">17</strong> 张</div>
+              </div>
+            </div>
+            <div id="turn-left" class="turn-indicator"></div>
+            <div id="bid-left" class="bid-badge"></div>
+          </div>
+          <div id="hand-left" class="hand hand-ai hand-left"></div>
+          <div id="play-left" class="played-slot side-played"></div>
+        </div>
+
+        <div class="player-area bottom">
+          <div id="seat-bottom" class="seat-panel self-seat">
+            <div class="avatar-wrap self">
+              <div class="avatar human">你</div>
+              <div class="player-meta">
+                <div class="name-row">
+                  <span class="player-name">玩家 · 你</span>
+                  <span id="role-bottom" class="role-tag self-role">待定</span>
+                </div>
+                <div class="score-row">手牌 <strong id="count-bottom">17</strong> 张</div>
+              </div>
+            </div>
+            <div id="turn-bottom" class="turn-indicator"></div>
+            <div id="bid-bottom" class="bid-badge"></div>
+          </div>
+          <div id="play-bottom" class="played-slot played-self"></div>
+          <div id="hand-bottom" class="hand hand-human"></div>
+          <div class="shortcuts-tip">快捷键：H 提示 · S 排序 · P 不出 · 空格 出牌 · Esc 清空选择 · N 新开一局</div>
+
+          <div class="action-panel glass">
+            <div class="action-panel-head">
+              <div>
+                <div class="action-title">操作面板</div>
+                <div class="action-subtitle">在你的回合中完成叫分或出牌</div>
+              </div>
+            </div>
+
+            <div id="biddingActions" class="action-group">
+              <button data-bid="0" class="btn btn-secondary bid-btn">不叫</button>
+              <button data-bid="1" class="btn btn-accent bid-btn">1分</button>
+              <button data-bid="2" class="btn btn-accent bid-btn">2分</button>
+              <button data-bid="3" class="btn btn-primary bid-btn">3分</button>
+            </div>
+
+            <div id="playActions" class="action-group hidden">
+              <button id="hintBtn" class="btn btn-secondary">提示</button>
+              <button id="sortBtn" class="btn btn-secondary">切换排序</button>
+              <button id="passBtn" class="btn btn-secondary">不出</button>
+              <button id="playBtn" class="btn btn-primary">出牌</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="sidebar glass">
+        <div class="panel hero-panel">
+          <div class="panel-title">对局总览</div>
+          <div class="hero-status">
+            <div>
+              <div class="hero-label">当前状态</div>
+              <div id="sidebarStatus" class="hero-value">等待开始</div>
+            </div>
+            <div class="hero-ring">
+              <span id="heroMultiplier">x1</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">对局信息</div>
+          <div class="stat-grid">
+            <div class="stat-card"><span>局数</span><strong id="roundCount">0</strong></div>
+            <div class="stat-card"><span>胜场</span><strong id="winCount">0</strong></div>
+            <div class="stat-card"><span>连胜</span><strong id="streakCount">0</strong></div>
+            <div class="stat-card"><span>春天</span><strong id="springFlag">否</strong></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">手牌压力</div>
+          <div class="pressure-list">
+            <div class="pressure-item">
+              <div class="pressure-head">
+                <span>阿策</span>
+                <strong id="pressure-count-top">17 张</strong>
+              </div>
+              <div class="pressure-role-row">
+                <span id="pressure-role-top">农民</span>
+                <span id="pressure-tag-top">稳态</span>
+              </div>
+              <div class="pressure-bar"><i id="pressure-fill-top"></i></div>
+            </div>
+            <div class="pressure-item">
+              <div class="pressure-head">
+                <span>小略</span>
+                <strong id="pressure-count-left">17 张</strong>
+              </div>
+              <div class="pressure-role-row">
+                <span id="pressure-role-left">农民</span>
+                <span id="pressure-tag-left">稳态</span>
+              </div>
+              <div class="pressure-bar"><i id="pressure-fill-left"></i></div>
+            </div>
+            <div class="pressure-item">
+              <div class="pressure-head">
+                <span>你</span>
+                <strong id="pressure-count-bottom">17 张</strong>
+              </div>
+              <div class="pressure-role-row">
+                <span id="pressure-role-bottom">待定</span>
+                <span id="pressure-tag-bottom">稳态</span>
+              </div>
+              <div class="pressure-bar"><i id="pressure-fill-bottom"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">积分榜</div>
+          <div class="scoreboard">
+            <div class="score-row-item"><span>你</span><strong id="score-self">1000</strong></div>
+            <div class="score-row-item"><span>阿策</span><strong id="score-top">1000</strong></div>
+            <div class="score-row-item"><span>小略</span><strong id="score-left">1000</strong></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">出牌记录</div>
+          <div id="logPanel" class="log-panel"></div>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <div id="modal" class="modal hidden">
+    <div class="modal-card glass">
+      <div class="modal-head">
+        <h2>斗地主规则简述</h2>
+        <button id="closeModalBtn" class="icon-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li>54张牌，三人对战，17张手牌 + 3张底牌。</li>
+          <li>叫分 0 到 3 分，最高分成为地主并获得底牌；若三家都不叫，则自动重发。</li>
+          <li>支持单张、对子、三张、三带一、三带二、顺子、连对、飞机、飞机带牌、四带二、炸弹、王炸。</li>
+          <li>炸弹和王炸会翻倍，春天会再次翻倍。</li>
+          <li>支持提示、排序切换、快捷键操作与本地积分保存。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
